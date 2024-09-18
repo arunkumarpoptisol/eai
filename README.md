@@ -9,6 +9,8 @@ This Node.js application listens to RabbitMQ, triggers an adapter to fetch data 
 EOI/
 │
 ├── lib/
+│
+├── src/
 │   ├── config/
 │   │   ├── database.js
 │   │   └── config.js

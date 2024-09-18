@@ -1,8 +1,9 @@
 const crypto = require("crypto");
 const config = require("../config/config");
 const Log = require("../models/Log");
-const { transformData } = require("../services/transformService");
-const sendMessage = require("../queue/sendMessage");
+const { transformData, sendMessage } = require("../../lib");
+// const { transformData } = require("../services/transformService");
+// const sendMessage = require("../queue/sendMessage");
 
 exports.verifyShopifyWebhook = (req, res, next) => {
   const hmacHeader = req.get("X-Shopify-Hmac-Sha256");

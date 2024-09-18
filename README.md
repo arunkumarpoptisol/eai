@@ -8,20 +8,13 @@ This Node.js application listens to RabbitMQ, triggers an adapter to fetch data 
 ```plaintext
 EOI/
 │
-├── src/
+├── lib/
 │   ├── config/
 │   │   ├── database.js
 │   │   └── config.js
 │   │
 │   ├── controllers/
-│   │   ├── adapterController.js
-│   │   ├── transformController.js
 │   │   └── webhookController.js
-│   │
-│   ├── services/
-│   │   ├── adapterService.js
-│   │   └── transformService.js
-│   │
 │   ├── models/
 │   │   └── Log.js
 │   │
@@ -31,11 +24,6 @@ EOI/
 │   │
 │   ├── utils/
 │   │   └── helpers.js
-│   │
-│   ├── queue/
-│   │   ├── rabbitmqListener.js
-│   │   ├── processMessage.js
-│   │   └── sendMessage.js
 │   │
 │   ├── app.js
 │   └── index.js

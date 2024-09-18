@@ -1,0 +1,24 @@
+{
+  "name": "eai-sdk",
+  "version": "1.0.0",
+  "description": "A reusable library for RabbitMQ message processing, API adapters, and data transformation.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "rabbitmq",
+    "processor",
+    "adapter",
+    "transformer",
+    "jsonata",
+    "eai"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.8.0",
+    "axios": "^1.2.1",
+    "jsonata": "^1.8.5"
+  }
+}

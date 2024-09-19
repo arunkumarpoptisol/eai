@@ -35,5 +35,9 @@ exports.handleShopifyWebhook = async (req, res) => {
   const transformedData = await transformData(result[0], jsonataExpression);
   // Process the incoming Shopify data
   await sendMessage(transformedData, tempConfig);
-  res.status(200).send(transformedData);
+  await Log.create({
+    phase: "shopify",
+    data: transformedData,
+  });
+  res.status(200).send({ transformedData, result });
 };

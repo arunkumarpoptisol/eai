@@ -15,5 +15,5 @@ module.exports.getShopifyExpression = async (data) => {
       ...transformedData,
     },
   };
-  return getShopifyExpression;
+  return expression;
 };

@@ -21,19 +21,23 @@ exports.verifyShopifyWebhook = (req, res, next) => {
 };
 
 exports.handleShopifyWebhook = async (req, res) => {
-  const shopifyData = req.body;
-  const tempConfig = config.rabbitmq;
-  await Log.create({
-    phase: "shopify",
-    data: shopifyData,
-  });
-  const transformedData = await getShopifyExpression(shopifyData);
+  try {
+    const shopifyData = req.body;
+    const tempConfig = config.rabbitmq;
+    await Log.create({
+      phase: "shopify",
+      data: shopifyData,
+    });
+    const transformedData = await getShopifyExpression(shopifyData);
 
-  await Log.create({
-    phase: "transform",
-    data: transformedData,
-  });
-  // Process the incoming Shopify data
-  await sendMessage(transformedData, tempConfig);
-  res.status(200).send({ transformedData, result });
+    await Log.create({
+      phase: "transform",
+      data: transformedData,
+    });
+    // Process the incoming Shopify data
+    await sendMessage(transformedData, tempConfig);
+    res.status(200).send("success");
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 };

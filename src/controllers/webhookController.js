@@ -1,7 +1,8 @@
 const crypto = require("crypto");
 const config = require("../config/config");
 const Log = require("../models/Log");
-const { transformData, sendMessage } = require("../../lib");
+const { transformData, sendMessage } = require("eai-nodejs");
+const { getShopifyExpression } = require("../expression/shopifyExpression");
 // const { transformData } = require("../services/transformService");
 // const sendMessage = require("../queue/sendMessage");
 
@@ -21,23 +22,18 @@ exports.verifyShopifyWebhook = (req, res, next) => {
 
 exports.handleShopifyWebhook = async (req, res) => {
   const shopifyData = req.body;
-
-  const result = await Log.find({});
-  // JSONata expression to transform the data
-  const jsonataExpression = `{
-   "_id":_id,
-    "newPhase": phase,
-    "newData": data,
-    "timestamp": timestamp
-    }`;
-
   const tempConfig = config.rabbitmq;
-  const transformedData = await transformData(result[0], jsonataExpression);
-  // Process the incoming Shopify data
-  await sendMessage(transformedData, tempConfig);
   await Log.create({
     phase: "shopify",
+    data: shopifyData,
+  });
+  const transformedData = await getShopifyExpression(shopifyData);
+
+  await Log.create({
+    phase: "transform",
     data: transformedData,
   });
+  // Process the incoming Shopify data
+  await sendMessage(transformedData, tempConfig);
   res.status(200).send({ transformedData, result });
 };
